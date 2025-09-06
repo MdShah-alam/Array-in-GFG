@@ -3,20 +3,20 @@ using namespace std;
 
 int maxIndexDiff(vector<int>&v)
 {
-    int n = v.size();
-    vector<int>prefix(n),suffix(n);
-    prefix[0]=v[0];
-    suffix[n-1]=v[n-1];
+    int n=v.size();
+    vector<int>rightmax(n);
+    rightmax[n-1]=v[n-1];
+    int val = v[n-1];
 
-    for(int i = 1; i < n; i++)
-        prefix[i] = min(prefix[i-1], v[i]);
+    for(int i=n-1;i>=0;i--){
+        val = max(val,v[i]);
+        rightmax[i]=val;
+    }
 
-    for(int i = n - 2; i >= 0; i--)
-        suffix[i] = max(suffix[i+1], v[i]);
-
-    int ans=0,i=0,j=0;
+    int ans=0;
+    int i=0,j=0;
     while(j<n && i<n){
-        if(prefix[i]<=suffix[j]){
+        if(v[i]<=rightmax[j]){
             ans = max(ans,j-i);
             j++;
         }
@@ -30,12 +30,13 @@ int main()
     int n;
     cin>>n;
     vector<int>v(n);
+
     for(int i=0;i<n;i++)
         cin>>v[i];
+
     cout<<maxIndexDiff(v)<<endl;
     return 0;
 }
-
 /**
 
 9
