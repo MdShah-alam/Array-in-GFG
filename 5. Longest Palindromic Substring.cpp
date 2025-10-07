@@ -3,25 +3,24 @@ using namespace std;
 
 string longestPalindrome(string s)
 {
-    int n=s.size();
-    if(n==0) return "";
-    int start=0,maxlen=1;
-
+    int n = s.size();
+    int start=0,maxlen=0;
     for(int i=0;i<n;i++){
-        int l=i, r=i;
+        int l=i,r=i;
         while(l>=0 && r<n && s[l]==s[r]){
-            if(r-l+1 > maxlen){
-                start=l;
-                maxlen=r-l+1;
+            if(r-l+1>maxlen){
+                start = l;
+                maxlen = r-l+1;
             }
             l--;
             r++;
         }
-        l=i,r=i+1;
-        while(i>=0 && r<n && s[l]==s[r]){
-            if(r-l+1>maxlen){
-                start=l;
-                maxlen=r-l+1;
+        l = i;
+        r = i+1;
+        while(l>=0 && r<n && s[l]==s[r]){
+            if(r-l+1 > maxlen){
+                start = l;
+                maxlen = r-l+1;
             }
             l--;
             r++;
@@ -34,4 +33,5 @@ int main()
     string s;
     cin>>s;
     cout<<longestPalindrome(s)<<endl;
+    return 0;
 }
